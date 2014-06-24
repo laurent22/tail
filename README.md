@@ -5,9 +5,24 @@
 A Go package striving to emulate the features of the BSD `tail` program. 
 
 ```Go
-t, err := tail.TailFile("/var/log/nginx.log", tail.Config{Follow: true})
-for line := range t.Lines {
-    fmt.Println(line.Text)
+package main
+
+import (
+	"fmt"
+	"github.com/ActiveState/tail"
+)
+
+func main() {
+	t, err := tail.TailFile("/var/log/nginx.log", tail.Config{Follow: true})
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	for line := range t.Lines {
+	    fmt.Println(line.Text)
+	}
 }
 ```
 
